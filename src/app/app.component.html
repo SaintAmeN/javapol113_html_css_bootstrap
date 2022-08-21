@@ -29,61 +29,130 @@
         </div>
       </div>
       <div class="col-9 content-col-right content-style">
+        <div class="content-form-container">
+          <div class="row content-form-title">
+            Tytuł Formularza
+          </div>
+          <div class="row content-form">
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="form-input-first-name">First name:</span>
+              <input type="text"
+                     [(ngModel)]="studentForm.firstName"
+                     class="form-control"
+                     placeholder="First name"
+                     aria-label="First name"
+                     aria-describedby="form-input-first-name">
+            </div>
+            <!-- {{studentForm.firstName}} -->
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="form-input-last-name">Last name:</span>
+              <input type="text" [(ngModel)]="studentForm.lastName"
+                     class="form-control"
+                     placeholder="Last name"
+                     aria-label="Last name"
+                     aria-describedby="form-input-last-name">
+            </div>
+            <!-- {{studentForm.lastName}} -->
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="form-input-birth-date">Birth date:</span>
+              <input type="date" [(ngModel)]="studentForm.birthDate"
+                     class="form-control"
+                     placeholder="Birth date"
+                     aria-label="Birth date"
+                     aria-describedby="form-input-birth-date">
+            </div>
+            <!-- {{studentForm.birthDate}} -->
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="form-input-income">Income:</span>
+              <input type="number" [(ngModel)]="studentForm.income"
+                     min="0" max="1000000" step="0.01"
+                     class="form-control"
+                     placeholder="Income"
+                     aria-label="Income"
+                     aria-describedby="form-input-income">
+            </div>
+            <!-- {{studentForm.income}} -->
+            <div class="input-group mb-2">
+              <label class="input-group-text" for="form-input-marital-status">Marital status:</label>
+              <select class="form-select" id="form-input-marital-status" [(ngModel)]="studentForm.maritalStatus">
+                <option selected>Choose...</option>
+                <option value="MARRIED">Married</option>
+                <option value="FREE">Free</option>
+              </select>
+            </div>
+            <!-- {{studentForm.maritalStatus}} -->
+            <!-- Pierwsza opcja -->
+            <div class="form-check mb-2">
+              <label class="form-check-label" for="form-input-age-confirmation-1">Are You over age of 26?</label>
+              <input type="checkbox" [(ngModel)]="studentForm.ageOver26"
+                     class="form-check-input"
+                     placeholder="Are You over age of 26?"
+                     id="form-input-age-confirmation-1">
+            </div>
+            <!-- Druga opcja -->
+            <div class="form-check form-switch mb-2">
+              <label class="form-check-label" for="form-input-age-confirmation-2">Are You over age of 26?</label>
+              <input type="checkbox" [(ngModel)]="studentForm.ageOver26"
+                     class="form-check-input"
+                     placeholder="Are You over age of 26?"
+                     id="form-input-age-confirmation-2">
+            </div>
+            <!-- Trzecia opcja -->
+            <div class="form-check mb-2">
+              <label class="form-check-label" for="form-input-age-confirmation-radio-yes">I am over age of 26</label>
+              <input type="radio" [(ngModel)]="studentForm.ageOver26"
+                     name="age-radio" value="true"
+                     class="form-check-input"
+                     id="form-input-age-confirmation-radio-yes">
+            </div>
+            <div class="form-check mb-2">
+              <label class="form-check-label" for="form-input-age-confirmation-radio-no">I am NOT over age of 26</label>
+              <input type="radio" [(ngModel)]="studentForm.ageOver26"
+                     name="age-radio" value="false"
+                     class="form-check-input"
+                     id="form-input-age-confirmation-radio-no">
+            </div>
+            <!-- {{studentForm.ageOver26}} -->
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="form-input-age">Age:</span>
+              <input type="number" [(ngModel)]="studentForm.age"
+                     value="20"
+                     min="1" max="200" step="1"
+                     class="form-control"
+                     placeholder="Age"
+                     aria-label="Age"
+                     aria-describedby="form-input-age">
+            </div>
+          </div>
+        </div>
+        <div class="content-form-buttons">
+          <button type="button" class="btn btn-warning col-2 offset-7" (click)="clear()">Clear</button>
+          <button type="button" class="btn btn-primary col-2 offset-1" (click)="submitClicked()">Submit</button>
+        </div>
+        {{studentList}}
+
+        <!-- Poniżej implementacja tabeli -->
         <div class="content-table-container">
           <div class="row content-table-title">
             Tytuł Tabeli
           </div>
           <div class="content-table-rows">
             <div class="row content-table-header">
-              <div class="col-2">Id</div>
+              <div class="col-2">Birth Date</div>
               <div class="col-3">First Name</div>
               <div class="col-3">Last Name</div>
-              <div class="col-2">Year</div>
+              <div class="col-2">Age</div>
               <div class="col-2">
               </div>
             </div>
-            <div class="row content-table-row">
-              <div class="col-2">1</div>
-              <div class="col-3">Marian</div>
-              <div class="col-3">Mariański</div>
-              <div class="col-2">3 rok</div>
+            <div *ngFor="let student of studentList" class="row content-table-row">
+              <div class="col-2">{{student.birthDate}}</div>
+              <div class="col-3">{{student.firstName}}</div>
+              <div class="col-3">{{student.lastName}}</div>
+              <div class="col-2">{{student.age}}</div>
               <div class="col-2">
-                <button class="btn btn-danger w-100">Delete</button>
+                <button class="btn btn-danger w-100" (click)="removeStudent(student)">Delete</button>
               </div>
-            </div>
-            <div class="row content-table-row">
-              <div class="col-2">1</div>
-              <div class="col-3">Marian</div>
-              <div class="col-3">Mariański</div>
-              <div class="col-2">3 rok</div>
-              <div class="col-2">
-                <button class="btn btn-danger w-100">Delete</button>
-              </div>
-            </div>
-            <div class="row content-table-row">
-              <div class="col-2">1</div>
-              <div class="col-3">Marian</div>
-              <div class="col-3">Mariański</div>
-              <div class="col-2">3 rok</div>
-              <div class="col-2">
-                <button class="btn btn-danger w-100">Delete</button>
-              </div>
-            </div>
-            <div class="row content-table-row">
-              <div class="col-2">1</div>
-              <div class="col-3">Marian</div>
-              <div class="col-3">Mariański</div>
-              <div class="col-2">3 rok</div>
-              <div class="col-2">
-                <button class="btn btn-danger w-100">Delete</button>
-              </div>
-            </div>
-            <div class="row content-table-row">
-              <div class="col-2">1</div>
-              <div class="col-3">Marian</div>
-              <div class="col-3">Mariański</div>
-              <div class="col-2">3 rok</div>
-              <div class="col-2"><button class="btn btn-danger w-100">Delete</button></div>
             </div>
           </div>
         </div>
